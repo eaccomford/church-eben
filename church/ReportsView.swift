@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ReportsView.swift
 //  church
 //
 //  Created by PK on 05/02/2021.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ReportsView: View {
     var body: some View {
-        DashboardView()
+        Text("Hello, reports!")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ReportsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ReportsView()
     }
 }

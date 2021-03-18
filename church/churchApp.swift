@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct churchApp: App {
+    init(){
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.blue]
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
