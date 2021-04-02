@@ -16,9 +16,31 @@ struct ChurchesView: View {
         Members(name: "Alvin Accomford", phone: "98337464723", church: "Assemblies"),
         Members(name: "Christiana Accomford", phone: "03733728262", church: "Church of Christ")
     ]
+    @State var email: String = ""
+    @State var pckerSelected = 0
+    @State  var showingSheet:Bool = false
     var body: some View {
         
         NavigationView{
+            
+            VStack{
+                HStack(spacing: 10){
+                    Picker(selection: $pckerSelected, label: Text("")){
+                                               Text("Cell Reports").tag(0)
+                                               Text("Church Reports").tag(1)
+                                           }.pickerStyle(SegmentedPickerStyle())
+                                           .padding(.horizontal,24)
+                }
+                HStack{
+                    TextField("Search for report", text: self.$email )
+                                        .padding(7)
+                                       .padding(.horizontal, 25)
+                                       .background(Color(.systemGray6))
+                                       .cornerRadius(8)
+                                       .padding(.horizontal, 10)
+                }
+                
+                HStack{
                     List(members){ user in
                         VStack{
                             NavigationLink(destination: CellsView(title:  user.name)) {
@@ -34,19 +56,26 @@ struct ChurchesView: View {
                                 }
                             }
                         }
-                    
-                .navigationTitle("Churches")
                 .navigationBarItems(trailing:
                                         Button(action: {
-                                            print("sup ge")
+                                            showingSheet.toggle()
                                         }){
                                             HStack{
                                                 Text("Add")
                                                 Image(systemName: "plus.rectangle.fill").imageScale(.large)
                                             }
                                         }
+                                    .sheet(isPresented: $showingSheet) {
+                                        SheetView()
+                                    }
                 )
                 
+            
+                }
+                }
+                VStack{
+                    Text("Showing of 190 entries")
+                }
             }
         }
         
@@ -63,5 +92,66 @@ struct Members: Identifiable {
 struct ChurchesView_Previews: PreviewProvider {
     static var previews: some View {
         ChurchesView()
+    }
+}
+
+
+struct SheetView: View {
+    @State var password:String = ""
+    var body: some View {
+        NavigationView{
+        ZStack(alignment: .leading){
+            VStack{
+                VStack{
+                    Spacer()
+                    HStack{
+                        Text("Submit a Cell report")
+                            .font(.system(size: 30))
+                            .padding(.bottom, 50)
+                            .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
+                            
+                    }
+                    HStack{
+                        TextField("Meeting Duration", text: self.$password)
+                            .padding(.bottom,10)
+                    }
+                    Divider().background(Color.white.opacity(0.5))
+                       
+                    HStack{
+                        TextField("Attendance", text: self.$password)
+                            .padding(.bottom,10)
+                    }
+                    Divider().background(Color.white.opacity(0.5))
+                    HStack{
+                        TextField("First Timers", text: self.$password)
+                            .padding(.bottom,10)
+                    }
+                    Divider().background(Color.white.opacity(0.5))
+                    HStack{
+                        TextField("New Converts", text: self.$password)
+                            .padding(.bottom,10)
+                    }
+                    Divider().background(Color.white.opacity(0.5))
+                }
+                .padding(.horizontal)
+                .padding(.top, 40)
+                Spacer()
+            }
+        }
+        .navigationBarItems(trailing:
+                                Button(action: {
+                                    print("fjf")
+                                }){
+                                    HStack(){
+                                        HStack{
+                                            Text("Back")
+                                        }
+                                        HStack{
+                                            Text("Done")
+                                        }
+                                    }
+                                }
+        )
+    }
     }
 }
