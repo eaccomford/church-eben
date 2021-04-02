@@ -114,67 +114,116 @@ struct DashBoard: View {
                         Text("Cell first timers VS Church first timers")
                             .padding(.top,44)
                             .font(.title3)
-                        Picker(selection: $pckerSelected, label: Text("")){
-                            Text("WeekDay").tag(0)
-                            Text("Afteroon").tag(1)
-                            Text("Evening").tag(2)
-                        }.pickerStyle(SegmentedPickerStyle())
-                        .padding(.horizontal,24)
+                        
                         HStack{
-                            HStack(spacing: 16){
-                                Barcharts(cvalue: "M", height: dataPoints[pckerSelected][0])
-                                Barcharts(cvalue: "T", height: dataPoints[pckerSelected][1])
-                                Barcharts(cvalue: "W", height: dataPoints[pckerSelected][2])
-                                Barcharts(cvalue: "T", height: dataPoints[pckerSelected][3])
-                                Barcharts(cvalue: "F", height: dataPoints[pckerSelected][4])
-                            } .padding(.top, 10)
-                            .animation(.default)
-                            
+                            ScrollView(.horizontal){
+                                HStack(spacing: 16){
+                                    VStack{
+                                        HStack{
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][2], color: .blue)
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][1],  color: .red)
+                                        }
+                                        HStack{
+                                            Text("Jan")
+                                        }
+                                    }
+                                    .padding(.trailing,10)
+                                    VStack{
+                                        HStack{
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][1], color: .blue)
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][3], color: .red)
+                                        }
+                                        HStack{
+                                            Text("FeB")
+                                        }
+                                    }
+                                    .padding(.trailing,10)
+                                    VStack{
+                                        HStack{
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][3], color: .blue)
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][1],  color: .red)
+                                        }
+                                        HStack{
+                                            Text("Mar")
+                                        }
+                                    }
+                                    .padding(.trailing,10)
+                                    VStack{
+                                        HStack{
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][4], color: .blue)
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][1],  color: .red)
+                                        }
+                                        HStack{
+                                            Text("Apr")
+                                        }
+                                    }
+                                    .padding(.trailing,10)
+                                    VStack{
+                                        HStack{
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][2], color: .blue)
+                                            Barcharts(cvalue: "", height: dataPoints[pckerSelected][1],  color: .red)
+                                        }
+                                        HStack{
+                                            Text("May")
+                                        }
+                                    }
+                                    
+                                } .padding(.top, 10)
+                                .animation(.default)
+                                
+                            }
+                           
                         }
+//                        Picker(selection: $pckerSelected, label: Text("")){
+//                            Text("WeekDay").tag(0)
+//                            Text("Afteroon").tag(1)
+//                            Text("Evening").tag(2)
+//                        }.pickerStyle(SegmentedPickerStyle())
+//                        .padding(.horizontal,24)
                         
                     }
                     
                     // chart view
-                    ZStack{
-                        
-                        VStack(spacing: 40){
-                            Spacer()
-                            Text("Chart View Grapths")
-                                .padding(.top,44)
-                                .font(.title3)
-                            Spacer()
-                            // line chart
-                            VStack{
-                                LineView(data: [12,43,10,78,89], title: "Line Chart")
-                            }
-                            .padding(.bottom, 300)
-                            Spacer()
-                            // bar char
-                            VStack{
-                                
-                                HStack{
-                                    ScrollView(.horizontal) {
-                                    BarChartView(data: ChartData(values: [
-                                        ("Jan", 14),
-                                        ("Feb", 90),
-                                        ("Mar", 30),
-                                        ("Apr", 43),
-                                        ("Jan", 14),
-                                        ("Feb", 90),
-                                        ("Mar", 30),
-                                        ("Apr", 43),
-                                    ]),
-                                    title: "Bar Chart", legend: "Quarterly",style: chartStyle,form: ChartForm.large)
-                                }
-                                }
-                            }
-                            Spacer()
-                            // pie char
-                            PieChartView(data: [89,39,76,34,100,76], title: "Pie Chart")
-                            Spacer()
-                        }
-                        
-                    }.padding(.horizontal,20)
+//                    ZStack{
+//
+//                        VStack(spacing: 40){
+//                            Spacer()
+//                            Text("Chart View Grapths")
+//                                .padding(.top,44)
+//                                .font(.title3)
+//                            Spacer()
+//                            // line chart
+//                            VStack{
+//                                LineView(data: [12,43,10,78,89], title: "Line Chart")
+//                            }
+//                            .padding(.bottom, 300)
+//                            Spacer()
+//                            // bar char
+//                            VStack{
+//
+//                                HStack{
+//                                    ScrollView(.horizontal) {
+//                                    BarChartView(data: ChartData(values: [
+//                                        ("Jan", 14),
+//                                        ("Feb", 90),
+//                                        ("Mar", 30),
+//                                        ("Apr", 43),
+//                                        ("Jan", 14),
+//                                        ("Feb", 90),
+//                                        ("Mar", 30),
+//                                        ("Apr", 43),
+//                                    ]),
+//                                    title: "Bar Chart", legend: "Quarterly",style: chartStyle,form: ChartForm.large)
+//                                }
+//                                }
+//                            }
+//                            Spacer()
+//                            // pie char
+//                            PieChartView(data: [89,39,76,34,100,76], title: "Pie Chart")
+//                            Spacer()
+//                        }
+//
+//                    }.padding(.horizontal,20)
                     
                     
                     Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
@@ -208,13 +257,14 @@ struct DashBoard: View {
 struct Barcharts: View {
     var cvalue: String
     var height: CGFloat
+    var color: Color
     var body: some View{
         VStack{
             ZStack(alignment: .bottom){
                 Capsule().frame(width: 30, height: 200)
                     .foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)))
                 Capsule().frame(width: 30, height: height)
-                    .foregroundColor(.blue)
+                    .foregroundColor(color)
             }
             Text(cvalue)
         }

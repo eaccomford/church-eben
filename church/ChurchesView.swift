@@ -17,6 +17,7 @@ struct ChurchesView: View {
         Members(name: "Christiana Accomford", phone: "03733728262", church: "Church of Christ")
     ]
     var body: some View {
+        
         NavigationView{
                     List(members){ user in
                         VStack{
